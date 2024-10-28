@@ -1,10 +1,12 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    background: 
+        linear-gradient(to right, rgba(178, 223, 219, 0.5), rgba(128, 203, 196, 0.5)), 
+        url('technology.jpg') no-repeat center center;
+    background-size: cover;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #ffffff, #f0f0f0);
-    color: #333;
+    font-family: Arial, sans-serif;
 }
 
 header {
