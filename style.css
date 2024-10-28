@@ -1,0 +1,124 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #ffffff, #f0f0f0);
+    color: #333;
+}
+
+header {
+    background: #555; /* Mellow Gray color */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+section:nth-child(even) {
+    background: linear-gradient(to right, #b3cde0, #6497b1); /* Mellow Blue gradient */
+    color: white;
+}
+
+section:nth-child(odd) {
+    background: linear-gradient(to right, #fbb4ae, #fdd49e); /* Mellow Red gradient */
+    color: white;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.skill, .project, .job, .education-entry, .testimonial {
+    margin-bottom: 30px;
+}
+
+footer {
+    background: linear-gradient(to right, #232526, #414345); /* Gray gradient */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+button {
+    background: linear-gradient(to right, #b2dfdb, #80cbc4); /* Mellow Green gradient */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: linear-gradient(to right, #80cbc4, #b2dfdb); /* Reverse Mellow Green gradient */
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form input[type="submit"] {
+    background: linear-gradient(to right, #b2dfdb, #80cbc4); /* Mellow Green gradient */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+form input[type="submit"]:hover {
+    background: linear-gradient(to right, #80cbc4, #b2dfdb); /* Reverse Mellow Green gradient */
+}
