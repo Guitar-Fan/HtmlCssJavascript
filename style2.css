@@ -175,3 +175,42 @@ section {
         background-position: 0% 50%;
     }
 }
+
+/* Code Showcase Styles */
+.showcase {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.showcase-demo {
+    flex: 1;
+    min-width: 300px;
+}
+
+.showcase-code {
+    flex: 1;
+    min-width: 300px;
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Courier New', Courier, monospace;
+    overflow-x: auto;
+}
+
+.showcase-code pre {
+    margin: 0;
+}
+
+.showcase-code textarea {
+    width: 100%;
+    height: 200px;
+    border: none;
+    background: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    resize: none;
+    outline: none;
+}
