@@ -1,40 +1,58 @@
-document.getElementById('runButton').addEventListener('click', () => {
-    const code = document.getElementById('code').value;
-    const resultFrame = document.getElementById('resultFrame').contentWindow.document;
+function submitTryit() {
+    var text = document.getElementById("textareaCode").value;
 
-    resultFrame.open();
-    resultFrame.write(code);
-    resultFrame.close();
-});
+    var ifr = document.createElement("iframe");
+    ifr.setAttribute("frameborder", "0");
+    ifr.setAttribute("id", "iframeResult");
+    ifr.setAttribute("name", "iframeResult");
+    ifr.setAttribute("allowfullscreen", "true");
 
-const resizer = document.getElementById('resizer');
-const leftSide = document.getElementById('left');
-const rightSide = document.getElementById('right');
-const displaySize = document.getElementById('displaySize');
+    document.getElementById("iframewrapper").innerHTML = "";
+    document.getElementById("iframewrapper").appendChild(ifr);
 
-resizer.addEventListener('mousedown', (e) => {
-    document.addEventListener('mousemove', resize);
-    document.addEventListener('mouseup', stopResize);
-});
-
-function resize(e) {
-    const containerWidth = document.querySelector('.container').offsetWidth;
-    const leftWidth = e.clientX / containerWidth * 100;
-    leftSide.style.width = `${leftWidth}%`;
-    rightSide.style.width = `${100 - leftWidth}%`;
-    updateDisplaySize();
+    var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
+    ifrw.document.open();
+    ifrw.document.write(text);
+    ifrw.document.close();
+    showFrameSize();
 }
 
-function stopResize() {
-    document.removeEventListener('mousemove', resize);
-    document.removeEventListener('mouseup', stopResize);
+function toggleTheme() {
+    document.body.classList.toggle("darktheme");
 }
 
-function updateDisplaySize() {
-    const width = rightSide.offsetWidth;
-    const height = rightSide.offsetHeight;
-    displaySize.textContent = `${width}px x ${height}px`;
+function showFrameSize() {
+    var width = Number(getComputedStyle(document.getElementById("iframeResult")).width.replace("px", "")).toFixed();
+    var height = Number(getComputedStyle(document.getElementById("iframeResult")).height.replace("px", "")).toFixed();
+    document.getElementById("framesize").innerHTML = "Result Size: <span>" + width + " x " + height + "</span>";
 }
 
-window.addEventListener('resize', updateDisplaySize);
-updateDisplaySize();
+var dragging = false;
+
+function dragstart(e) {
+    e.preventDefault();
+    dragging = true;
+}
+
+function dragmove(e) {
+    if (dragging) {
+        document.getElementById("shield").style.display = "block";
+        var percentage = (e.pageX / window.innerWidth) * 100;
+        if (percentage > 5 && percentage < 98) {
+            var mainPercentage = 100 - percentage;
+            document.getElementById("textareacontainer").style.width = percentage + "%";
+            document.getElementById("iframecontainer").style.width = mainPercentage + "%";
+        }
+        showFrameSize();
+    }
+}
+
+function dragend() {
+    document.getElementById("shield").style.display = "none";
+    dragging = false;
+}
+
+document.getElementById("dragbar").addEventListener("mousedown", dragstart);
+window.addEventListener("mousemove", dragmove);
+window.addEventListener("mouseup", dragend);
+window.addEventListener("load", showFrameSize);
