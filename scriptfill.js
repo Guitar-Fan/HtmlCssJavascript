@@ -47,6 +47,7 @@ function dragStart(e) {
     isDragging = true;
     document.addEventListener("mousemove", dragMove);
     document.addEventListener("mouseup", dragEnd);
+    document.body.style.cursor = 'col-resize';
 }
 
 function dragMove(e) {
@@ -72,6 +73,7 @@ function dragEnd() {
     isDragging = false;
     document.removeEventListener("mousemove", dragMove);
     document.removeEventListener("mouseup", dragEnd);
+    document.body.style.cursor = 'default';
     if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
         animationFrameId = null;
