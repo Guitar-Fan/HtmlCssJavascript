@@ -1,19 +1,10 @@
-function submitTryit() {
-    var text = document.getElementById("textareaCode").value;
-
-    var ifr = document.createElement("iframe");
-    ifr.setAttribute("frameborder", "0");
-    ifr.setAttribute("id", "iframeResult");
-    ifr.setAttribute("name", "iframeResult");
-    ifr.setAttribute("allowfullscreen", "true");
-
-    document.getElementById("iframewrapper").innerHTML = "";
-    document.getElementById("iframewrapper").appendChild(ifr);
-
-    var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
-    ifrw.document.open();
-    ifrw.document.write(text);
-    ifrw.document.close();
+function runCode() {
+    const code = document.getElementById("editor").value;
+    const iframe = document.getElementById("resultFrame");
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(code);
+    doc.close();
     showFrameSize();
 }
 
@@ -22,37 +13,56 @@ function toggleTheme() {
 }
 
 function showFrameSize() {
-    var width = Number(getComputedStyle(document.getElementById("iframeResult")).width.replace("px", "")).toFixed();
-    var height = Number(getComputedStyle(document.getElementById("iframeResult")).height.replace("px", "")).toFixed();
-    document.getElementById("framesize").innerHTML = "Result Size: <span>" + width + " x " + height + "</span>";
+    const iframe = document.getElementById("resultFrame");
+    const width = iframe.clientWidth;
+    const height = iframe.clientHeight;
+    document.getElementById("framesize").textContent = `Size: ${width}px x ${height}px`;
 }
 
-var dragging = false;
+let isDragging = false;
+let animationFrameId;
 
-function dragstart(e) {
-    e.preventDefault();
-    dragging = true;
+function dragStart(e) {
+    isDragging = true;
+    document.addEventListener("mousemove", dragMove);
+    document.addEventListener("mouseup", dragEnd);
 }
 
-function dragmove(e) {
-    if (dragging) {
-        document.getElementById("shield").style.display = "block";
-        var percentage = (e.pageX / window.innerWidth) * 100;
-        if (percentage > 5 && percentage < 98) {
-            var mainPercentage = 100 - percentage;
-            document.getElementById("textareacontainer").style.width = percentage + "%";
-            document.getElementById("iframecontainer").style.width = mainPercentage + "%";
+function dragMove(e) {
+    if (isDragging) {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
         }
-        showFrameSize();
+        animationFrameId = requestAnimationFrame(() => {
+            const container = document.getElementById("container");
+            const editor = document.getElementById("editor");
+            const result = document.getElementById("result");
+            const dragbar = document.getElementById("dragbar");
+            const percentage = (e.clientX / window.innerWidth) * 100;
+            editor.style.width = `${percentage}%`;
+            result.style.width = `calc(100% - ${percentage}%)`;
+            dragbar.style.left = `${percentage}%`;
+            showFrameSize();
+        });
     }
 }
 
-function dragend() {
-    document.getElementById("shield").style.display = "none";
-    dragging = false;
+function dragEnd() {
+    isDragging = false;
+    document.removeEventListener("mousemove", dragMove);
+    document.removeEventListener("mouseup", dragEnd);
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+    }
 }
 
-document.getElementById("dragbar").addEventListener("mousedown", dragstart);
-window.addEventListener("mousemove", dragmove);
-window.addEventListener("mouseup", dragend);
+document.getElementById("dragbar").addEventListener("mousedown", dragStart);
 window.addEventListener("load", showFrameSize);
+window.addEventListener("resize", () => {
+    const result = document.getElementById("result");
+    const dragbar = document.getElementById("dragbar");
+    result.style.width = "50%";
+    dragbar.style.left = "50%";
+    showFrameSize();
+});

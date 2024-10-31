@@ -1,63 +1,28 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 <head>
-    <title>W3Schools Tryit Editor</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor</title>
     <link rel="stylesheet" href="stylefill.css">
+    <script src="scriptfill.js" defer></script>
 </head>
 <body>
-    <div class="trytopnav">
-        <div class="w3-bar" style="overflow:auto">
-            <button id="runbtn" class="w3-button w3-bar-item w3-hover-white w3-hover-text-green" onclick="submitTryit()">Run &#10095;</button>
-            <button id="themebtn" class="w3-button w3-bar-item w3-hover-white w3-hover-text-green" onclick="toggleTheme()">Toggle Theme</button>
-            <span class="w3-right" style="padding:8px 16px 8px 0;display:block;float:right;font-size:16px;margin-top:4px"><span id="framesize"></span></span>
+    <div class="topnav">
+        <div>
+            <button onclick="toggleTheme()">Toggle Theme</button>
+        </div>
+        <div>
+            <button onclick="runCode()">Run</button>
         </div>
     </div>
-
-    <div id="shield"></div>
-    <a href="javascript:void(0)" id="dragbar"></a>
     <div id="container">
-        <div id="textareacontainer">
-            <div id="textarea">
-                <div id="textareawrapper">
-                    <textarea autocomplete="off" id="textareaCode" wrap="logical" spellcheck="false">
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body {
-  background-color: lightblue;
-}
-
-h1 {
-  color: white;
-  text-align: center;
-}
-
-p {
-  font-family: verdana;
-  font-size: 20px;
-}
-</style>
-</head>
-<body>
-
-<h1>My First CSS Example</h1>
-<p>This is a paragraph.</p>
-
-</body>
-</html>
-                    </textarea>
-                </div>
-            </div>
-        </div>
-        <div id="iframecontainer">
-            <div id="iframe">
-                <div id="iframewrapper"></div>
-            </div>
+        <textarea id="editor" placeholder="Write your code here..."></textarea>
+        <div id="dragbar"></div>
+        <div id="result">
+            <iframe id="resultFrame" frameborder="0"></iframe>
+            <div id="framesize"></div>
         </div>
     </div>
-
-    <script src="scriptfill.js"></script>
 </body>
 </html>
