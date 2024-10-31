@@ -34,6 +34,22 @@ body {
     background-color: #059862;
 }
 
+.topnav button.save {
+    background-color: #2196F3;
+}
+
+.topnav button.save:hover {
+    background-color: #1976D2;
+}
+
+.topnav button.upload {
+    background-color: #FF9800;
+}
+
+.topnav button.upload:hover {
+    background-color: #FB8C00;
+}
+
 #container {
     display: flex;
     height: calc(100vh - 50px);
@@ -43,13 +59,15 @@ body {
 
 #editor, #result {
     flex: 1;
-    overflow: auto;
+    overflow-y: auto; /* Only vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
     padding: 10px;
 }
 
 #editor {
     border-right: 2px solid #ccc;
     resize: none;
+    white-space: pre-wrap; /* Enable text wrapping */
 }
 
 #result {

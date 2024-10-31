@@ -19,6 +19,27 @@ function showFrameSize() {
     document.getElementById("framesize").textContent = `Size: ${width}px x ${height}px`;
 }
 
+function saveCode() {
+    const code = document.getElementById("editor").value;
+    const blob = new Blob([code], { type: "text/html" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "code.html";
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+
+function uploadCode(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById("editor").value = e.target.result;
+        };
+        reader.readAsText(file);
+    }
+}
+
 let isDragging = false;
 let animationFrameId;
 
@@ -58,6 +79,7 @@ function dragEnd() {
 }
 
 document.getElementById("dragbar").addEventListener("mousedown", dragStart);
+document.getElementById("upload").addEventListener("change", uploadCode);
 window.addEventListener("load", showFrameSize);
 window.addEventListener("resize", () => {
     const result = document.getElementById("result");
